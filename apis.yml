@@ -1,8 +1,19 @@
 aid: tamara-mellon
 name: Tamara Mellon
-description: 'Tamara Mellon is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Tamara Mellon Brand, Inc. is a Los Angeles based direct-to-consumer luxury footwear company founded
+  in 2016 by designer Tamara Mellon, co-founder of Jimmy Choo, together with chief executive Jill
+  Layfield. The brand sells Italian-made women's shoes and accessories straight to customers online
+  rather than through wholesale, releasing product in monthly drops instead of following the
+  traditional fashion calendar, and it is reported to have raised roughly $87 million in venture
+  funding after the earlier Tamara Mellon LLC filed for Chapter 11 in 2015. In August 2025 the company
+  announced a licensing and operating partnership with footwear licensing firm Titan Industries. It is
+  a consumer goods retailer rather than a software company: it publishes no public API, developer
+  portal, SDK, or machine-readable specification of any kind. As probed on 2026-08-29 its canonical
+  domain returns HTTP 404 on every path from an unprovisioned CDN origin, and its Shopify storefront at
+  shop.tamaramellon.com redirects to a store password gate.
 url: https://raw.githubusercontent.com/api-evangelist/tamara-mellon/refs/heads/main/apis.yml
+image: https://avatars.githubusercontent.com/u/25162387?v=4
 x-type: company
 x-source: harvest:secondary-market
 x-tier: stub
@@ -12,6 +23,14 @@ created: '2026-08-29'
 modified: '2026-08-29'
 tags:
 - Company
+- Fashion
+- Footwear
+- Luxury
+- Retail
+- Direct to Consumer
+- E-Commerce
+- Consumer Goods
+- Apparel
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -19,5 +38,47 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: WellKnown
+  url: well-known/tamara-mellon-well-known.yml
+- type: Conformance
+  url: conformance/tamara-mellon-conformance.yml
+- type: LLMsTxt
+  url: llms/tamara-mellon-llms.txt
+- type: DomainSecurity
+  url: security/tamara-mellon-domain-security.yml
 - type: Website
+  url: https://shop.tamaramellon.com/
+- type: GitHubOrganization
+  url: https://github.com/TamaraMellon
+- type: SecondaryMarketListing
   url: https://forgeglobal.com/tamara-mellon_stock/
+x-enrichment:
+  date: '2026-08-29'
+  status: minimal
+  artifacts_added: 10
+  pass: local-v1
+x-coverage:
+  state: none
+  reason: not-a-software-company
+  detail: >-
+    Tamara Mellon is a direct-to-consumer luxury footwear retailer with no developer program, and its
+    web presence is currently dark: www.tamaramellon.com returns a bare HTTP 404 on every path from an
+    unprovisioned CDN origin whose TLS certificate does not cover the domain, while the brand's Shopify
+    storefront at shop.tamaramellon.com 302s to a store password gate, so the only machine-readable
+    documents on any host it controls are Shopify's own Customer Account OIDC/OAuth metadata.
+  evidence:
+  - url: https://www.tamaramellon.com/
+    status: 404
+  - url: https://www.tamaramellon.com/.well-known/api-catalog
+    status: 404
+  - url: https://shop.tamaramellon.com/
+    status: 302
+  - url: https://shop.tamaramellon.com/products.json
+    status: 401
+  - url: https://www.tamaramellon.com/api/ucp/mcp
+    status: 404
+  - url: https://shop.tamaramellon.com/.well-known/openid-configuration
+    status: 200
+  - url: https://github.com/TamaraMellon
+    status: 200
+  checked: '2026-08-29'

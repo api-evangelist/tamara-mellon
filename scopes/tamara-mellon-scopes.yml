@@ -1,0 +1,22 @@
+generated: '2026-08-29'
+method: probed
+source: https://shop.tamaramellon.com/.well-known/oauth-authorization-server
+docs: https://shopify.dev/docs/api/customer
+note: >-
+  These are the scopes advertised by the Shopify-operated Customer Account authorization server mounted
+  at Tamara Mellon's storefront host. They are Shopify platform scopes, not scopes Tamara Mellon
+  defined, and they are listed here because they are the complete set of OAuth scopes obtainable
+  against any host this company controls. Read verbatim from `scopes_supported`; none were inferred.
+issuer: https://shopify.com/authentication/11034464
+first_party: false
+scopes:
+- name: openid
+  description: OpenID Connect authentication; returns an ID token identifying the shopper.
+- name: email
+  description: Releases the shopper's email address and email_verified claim.
+- name: customer-account-api:full
+  description: Full access to the Shopify Customer Account API for the authenticated shopper.
+- name: customer-account-mcp-api:full
+  description: >-
+    Full access to the Shopify Customer Account MCP API for the authenticated shopper - the
+    agent-facing projection of the customer account surface.

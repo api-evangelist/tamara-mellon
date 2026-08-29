@@ -1,0 +1,53 @@
+generated: '2026-08-29'
+method: probed
+source: https://shop.tamaramellon.com/robots.txt
+status: advertised-unreachable
+note: >-
+  NO MCPServer pointer is wired into apis.yml for this artifact, deliberately. Tamara Mellon's Shopify
+  storefront advertises an agent surface in its own robots.txt - "Agent instructions:
+  https://www.tamaramellon.com/agents.md", "UCP discovery:
+  https://www.tamaramellon.com/.well-known/ucp", "UCP/MCP endpoint:
+  https://www.tamaramellon.com/api/ucp/mcp" - and the shop's OAuth metadata advertises a
+  `customer-account-mcp-api:full` scope. But every one of those URLs names www.tamaramellon.com, which
+  no longer serves anything: all three return HTTP 404. The same paths on the live storefront host
+  answer with the password gate. This is a real and useful finding - a provider whose agent surface is
+  advertised at a host it has let go dark - but it is not a reachable MCP server, and recording it as
+  one would credit an agent surface no client can call. Nothing here was derived or invented; every
+  line is quoted from the provider's own robots.txt or is an observed HTTP status.
+deployment:
+  mode: none
+  auth: oauth
+  verified: probed
+advertised:
+- kind: ucp-mcp-endpoint
+  url: https://www.tamaramellon.com/api/ucp/mcp
+  advertised_in: https://shop.tamaramellon.com/robots.txt
+  probe:
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 404
+    checked: '2026-08-29'
+- kind: ucp-discovery
+  url: https://www.tamaramellon.com/.well-known/ucp
+  advertised_in: https://shop.tamaramellon.com/robots.txt
+  probe:
+    method: GET
+    http_status: 404
+    checked: '2026-08-29'
+- kind: agent-instructions
+  url: https://www.tamaramellon.com/agents.md
+  advertised_in: https://shop.tamaramellon.com/robots.txt
+  probe:
+    method: GET
+    http_status: 404
+    checked: '2026-08-29'
+- kind: oauth-scope
+  scope: customer-account-mcp-api:full
+  advertised_in: https://shop.tamaramellon.com/.well-known/oauth-authorization-server
+  note: Shopify Customer Account MCP API scope; the shop is password-gated so it cannot be exercised.
+alternate_host_probe:
+- url: https://shop.tamaramellon.com/api/ucp/mcp
+  method: POST
+  http_status: 401
+  note: Shopify password-gated store returns 401 with an empty body for non-HTML paths.
+tools: []

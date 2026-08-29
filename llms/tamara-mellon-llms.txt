@@ -1,0 +1,45 @@
+# Tamara Mellon
+
+> Tamara Mellon Brand, Inc. is a Los Angeles based direct-to-consumer luxury footwear company founded
+> in 2016 by designer Tamara Mellon (co-founder of Jimmy Choo) and chief executive Jill Layfield. It
+> sells Italian-made women's shoes and accessories online rather than through wholesale. It is a
+> consumer goods retailer, not a software company.
+
+## API surface
+
+There is none. Tamara Mellon publishes no API, no developer portal, no SDK, no CLI, no webhooks, and
+no machine-readable specification of any kind — no OpenAPI, Swagger, GraphQL SDL, AsyncAPI, Postman
+collection, .proto or WSDL. Do not attempt to call an endpoint on this brand's behalf.
+
+As probed 2026-08-29:
+
+- https://www.tamaramellon.com/ — HTTP 404 on every path. The domain resolves to an unprovisioned
+  Netlify origin whose TLS certificate does not cover the hostname.
+- https://shop.tamaramellon.com/ — HTTP 302 to /password. The Shopify storefront is password-gated;
+  /products.json and /llms.txt both return HTTP 401.
+- https://github.com/TamaraMellon — a real, first-party GitHub organization with zero public
+  repositories.
+
+## Agent surface advertised but not served
+
+The storefront's robots.txt advertises Shopify's agentic-commerce endpoints at the canonical domain:
+`https://www.tamaramellon.com/agents.md`, `https://www.tamaramellon.com/.well-known/ucp`, and
+`https://www.tamaramellon.com/api/ucp/mcp`. All three return HTTP 404. There is no callable MCP or
+A2A surface.
+
+## What is actually machine-readable
+
+Only Shopify platform metadata mounted on the storefront host, scoped to shop id 11034464:
+
+- https://shop.tamaramellon.com/.well-known/openid-configuration — OIDC discovery (Shopify Customer
+  Accounts)
+- https://shop.tamaramellon.com/.well-known/oauth-authorization-server — RFC 8414 metadata
+- https://shop.tamaramellon.com/.well-known/oauth-protected-resource — RFC 9728 metadata
+
+These authenticate retail shoppers into their own accounts. They are not a developer API.
+
+## This profile
+
+- apis.yml — https://raw.githubusercontent.com/api-evangelist/tamara-mellon/refs/heads/main/apis.yml
+- Independently maintained by API Evangelist. Not affiliated with or endorsed by Tamara Mellon.
+- Corrections, re-scores and removal are free: info@apievangelist.com

@@ -1,0 +1,75 @@
+generated: '2026-08-29'
+method: probed
+source: >-
+  Direct unauthenticated GET of each /.well-known/ path on every host Tamara Mellon controls,
+  2026-08-29. Hosts derived from apis.yml and from DNS on tamaramellon.com.
+note: >-
+  Two of the three hosts serve nothing. www.tamaramellon.com / tamaramellon.com resolve to an
+  unprovisioned Netlify origin whose TLS certificate does not even cover the domain, and every path
+  returns a bare `Not Found - Request ID: ...` 404. shop.tamaramellon.com is the brand's Shopify
+  storefront and is 302'd to a store password gate, so most paths answer with the storefront HTML
+  shell (76,091 bytes, identical for every /.well-known/* path) - those 200s are SPA catch-alls, NOT
+  documents, and are recorded as misses. Three paths do return real JSON: the OpenID Connect
+  discovery document, the RFC 8414 authorization-server metadata, and the RFC 9728 protected-resource
+  metadata. These are published by the Shopify platform for the shop's Customer Account API, not
+  authored by Tamara Mellon, but they are served from a host Tamara Mellon controls and are scoped to
+  this shop specifically - `resource` is https://shop.tamaramellon.com and the issuer carries this
+  shop's id, 11034464 (the same id the storefront robots.txt disallows). They are saved verbatim.
+hosts:
+- host: www.tamaramellon.com
+  note: Canonical brand domain; unprovisioned origin, every path 404s.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/ucp
+    status: 404
+    note: Advertised by the storefront robots.txt as the UCP discovery document; it does not exist.
+- host: shop.tamaramellon.com
+  note: Shopify storefront, password-gated. HTML-shell 200s are catch-alls, not documents.
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: tamara-mellon-openid-configuration.json
+    content_type: application/json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: tamara-mellon-oauth-authorization-server.json
+    content_type: application/json
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: tamara-mellon-oauth-protected-resource.json
+    content_type: application/json
+  - path: /.well-known/security.txt
+    status: 200
+    note: HTML storefront shell, not a security.txt. Recorded as a miss.
+  - path: /.well-known/api-catalog
+    status: 200
+    note: HTML storefront shell, not an API catalog. Recorded as a miss.
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    note: HTML storefront shell. Recorded as a miss.
+  - path: /.well-known/agent-card.json
+    status: 200
+    note: HTML storefront shell, not an AgentCard. Recorded as a miss; no a2a/ artifact written.
+  - path: /.well-known/agent.json
+    status: 200
+    note: HTML storefront shell. Recorded as a miss.
+- host: tamaramellon.com
+  note: Apex; same unprovisioned origin as www.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
