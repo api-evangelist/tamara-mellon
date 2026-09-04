@@ -13,6 +13,21 @@ description: >-
   domain returns HTTP 404 on every path from an unprovisioned CDN origin, and its Shopify storefront at
   shop.tamaramellon.com redirects to a store password gate.
 url: https://raw.githubusercontent.com/api-evangelist/tamara-mellon/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  probe_state: none
+  source:
+  - authentication
+  - scopes
+  - security
+  generated: '2026-09-03'
+  method: derived
 image: https://avatars.githubusercontent.com/u/25162387?v=4
 x-type: company
 x-source: harvest:secondary-market
